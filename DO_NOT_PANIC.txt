@@ -1,0 +1,3 @@
+BYTEGN.XYZ // BEAT//CITY Browser Beta 0.1
+If you opened this because the filenames looked suspicious: good.
+They're jokes. The game code is readable on purpose.

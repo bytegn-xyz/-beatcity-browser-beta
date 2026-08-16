@@ -3,89 +3,133 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="BEAT//CITY Browser Beta 0.1 — an original neon rhythm-game prototype created and developed by BYTEGN.XYZ." />
+  <meta name="theme-color" content="#050711" />
+  <meta name="description" content="BEAT//CITY Browser Beta 0.2 — original neon rhythm game created and developed by BYTEGN.XYZ." />
   <meta name="author" content="BYTEGN.XYZ" />
-  <title>BEAT//CITY // Browser Beta 0.1 // BYTEGN.XYZ</title>
+  <title>BEAT//CITY // Browser Beta 0.2 // BYTEGN.XYZ</title>
   <link rel="stylesheet" href="blackbox/neon-protocol.css" />
 </head>
 <body>
-  <!-- [BYTEGN.XYZ BLACKBOX] Harmless rhythm-game code. No malware. Just dramatic filenames. -->
+  <!-- BYTEGN.XYZ // BLACKBOX // filenames are aesthetic; source remains readable. -->
   <div class="app-shell">
     <header class="topbar">
-      <div class="brand"><span class="brand-mark">▥</span> BEAT//CITY <b>BETA</b></div>
-      <nav><button class="nav-active">▶ PLAY</button><button>DISCOVER</button><button>CHALLENGES</button><button>PROFILE</button></nav>
-      <div class="status"><span>🌐 CHARLOTTE</span><span id="fps">60fps</span><span class="pill">⚡ <b id="energyTop">100</b></span><button id="settingsBtn">⚙</button></div>
+      <button class="brand" data-view="play" aria-label="BEAT//CITY home"><span class="brand-mark">▥</span> BEAT//CITY <b>BETA 0.2</b></button>
+      <nav id="mainNav" aria-label="Primary navigation">
+        <button class="nav-active" data-view="play">▶ PLAY</button>
+        <button data-view="discover">DISCOVER</button>
+        <button data-view="challenges">CHALLENGES</button>
+        <button data-view="chat">CHAT</button>
+        <button data-view="profile">PROFILE</button>
+      </nav>
+      <div class="status"><span id="fps">60fps</span><span class="pill">⚡ <b id="energyTop">100</b></span><button id="fullscreenBtn" title="Fullscreen">⛶</button><button id="settingsBtn" title="Settings">⚙</button></div>
     </header>
 
-    <main class="layout">
-      <aside class="sidebar leftbar">
-        <section class="panel now-playing">
-          <h3>♫ NOW PLAYING</h3>
-          <div class="track-card">
-            <div class="cover-art"><div class="cover-grid"></div><span>MIDNIGHT<br>RUN</span><small>NOVA REIGN</small></div>
-            <div class="track-meta"><span class="artist">NOVA REIGN</span><h2>Midnight Run</h2><div><span class="tag cyan">Charlotte</span><span class="tag pink">Electro Pop</span></div><p>BPM <b id="bpmLabel">128</b></p></div>
-          </div>
-          <div class="progress-row"><span id="timeNow">0:00</span><input id="songProgress" type="range" min="0" max="100" value="0" disabled><span id="timeTotal">1:00</span></div>
-        </section>
+    <main>
+      <section class="view active" id="view-play" data-view-panel="play">
+        <div class="layout">
+          <aside class="sidebar leftbar">
+            <section class="panel now-playing">
+              <h3>♫ NOW PLAYING</h3>
+              <div class="track-card">
+                <div class="cover-art" id="coverArt"><span id="coverTitle">MIDNIGHT<br>RUN</span><small id="coverArtist">NOVA REIGN</small></div>
+                <div class="track-meta"><span class="artist" id="artistLabel">NOVA REIGN</span><h2 id="titleLabel">Midnight Run</h2><div><span class="tag cyan" id="cityLabel">Charlotte</span><span class="tag pink" id="genreLabel">Electro Pop</span></div><p>BPM <b id="bpmLabel">128</b></p></div>
+              </div>
+              <div class="progress-row"><span id="timeNow">0:00</span><input id="songProgress" type="range" min="0" max="100" value="0" disabled><span id="timeTotal">1:00</span></div>
+            </section>
 
-        <section class="panel leaderboard">
-          <h3>▥ WEEKLY LEADERBOARD <span>DEMO</span></h3>
-          <ol>
-            <li><b>1</b><span>NEON.KAT</span><strong>1,058,760</strong></li>
-            <li><b>2</b><span>ShibuyaGhost</span><strong>987,210</strong></li>
-            <li><b>3</b><span>HARU_7</span><strong>943,880</strong></li>
-            <li class="you"><b>4</b><span>YOU</span><strong id="leaderScore">0</strong></li>
-            <li><b>5</b><span>beat_mochi</span><strong>745,910</strong></li>
-          </ol>
-        </section>
-      </aside>
+            <section class="panel leaderboard">
+              <h3>▥ WEEKLY LEADERBOARD <span>DEMO</span></h3>
+              <ol>
+                <li><b>1</b><span>NEON.KAT</span><strong>1,058,760</strong></li>
+                <li><b>2</b><span>ShibuyaGhost</span><strong>987,210</strong></li>
+                <li><b>3</b><span>HARU_7</span><strong>943,880</strong></li>
+                <li class="you"><b>4</b><span>YOU</span><strong id="leaderScore">0</strong></li>
+                <li><b>5</b><span>beat_mochi</span><strong>745,910</strong></li>
+              </ol>
+            </section>
+          </aside>
 
-      <section class="game-stage panel">
-        <div class="stage-city"></div>
-        <div class="hud">
-          <div><span>SCORE</span><strong id="score">0</strong></div>
-          <div class="combo"><span>COMBO</span><strong id="combo">0</strong><em id="judgement">READY</em></div>
-          <div><span>ACCURACY</span><strong id="accuracy">100.00%</strong><small>BEST <b id="bestCombo">0</b></small></div>
-        </div>
+          <section class="game-stage panel">
+            <div class="stage-city"></div>
+            <div class="hud">
+              <div><span>SCORE</span><strong id="score">0</strong></div>
+              <div class="combo"><span>COMBO</span><strong id="combo">0</strong><em id="judgement">READY</em></div>
+              <div><span>ACCURACY</span><strong id="accuracy">100.00%</strong><small>BEST <b id="bestCombo">0</b></small></div>
+            </div>
 
-        <div class="lane-wrap" id="laneWrap">
-          <canvas id="gameCanvas"></canvas>
-          <div class="hit-flash" id="hitFlash"></div>
-          <div class="key-row">
-            <button data-lane="0">A</button><button data-lane="1">S</button><button data-lane="2">K</button><button data-lane="3">L</button>
-          </div>
-        </div>
+            <div class="lane-wrap" id="laneWrap">
+              <canvas id="gameCanvas"></canvas>
+              <div class="key-row">
+                <button data-lane="0">A</button><button data-lane="1">S</button><button data-lane="2">K</button><button data-lane="3">L</button>
+              </div>
+            </div>
 
-        <div class="bottom-hud">
-          <div class="meter"><span>⚡ HYPE METER</span><div class="meter-track"><i id="hypeBar"></i></div></div>
-          <div class="meter"><span>⚡ ENERGY <b id="energyText">100 / 100</b></span><div class="meter-track energy"><i id="energyBar"></i></div></div>
-          <button id="pauseBtn" class="pause">Ⅱ<br><small>ESC</small></button>
+            <div class="mobile-game-controls">
+              <button id="mobileStartBtn" class="primary">START TRACK</button>
+              <button id="mobileExitBtn">EXIT GAME MODE</button>
+            </div>
+
+            <div class="bottom-hud">
+              <div class="meter"><span>⚡ HYPE METER</span><div class="meter-track"><i id="hypeBar"></i></div></div>
+              <div class="meter"><span>⚡ ENERGY <b id="energyText">100 / 100</b></span><div class="meter-track energy"><i id="energyBar"></i></div></div>
+              <button id="pauseBtn" class="pause">Ⅱ<br><small>ESC</small></button>
+            </div>
+          </section>
+
+          <aside class="sidebar rightbar">
+            <section class="panel controls-panel">
+              <h3>GAME SETUP</h3>
+              <label>Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option></select></label>
+              <label>Note speed<input id="speedRange" type="range" min="450" max="1100" value="700" step="25"></label>
+              <button id="startBtn" class="primary">START TRACK</button>
+              <button id="restartBtn">RESTART</button>
+              <p class="hint">Keyboard: A S K L · Pause: Esc<br>Mobile: tap the lane buttons.</p>
+            </section>
+
+            <section class="panel queue">
+              <h3>♫ TRACK SELECT</h3>
+              <div id="queueList"></div>
+              <button class="panel-link" data-view="discover">BROWSE ALL DEMOS →</button>
+            </section>
+          </aside>
         </div>
       </section>
 
-      <aside class="sidebar rightbar">
-        <section class="panel controls-panel">
-          <h3>GAME SETUP</h3>
-          <label>Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option></select></label>
-          <label>Note speed<input id="speedRange" type="range" min="450" max="1000" value="700" step="25"></label>
-          <button id="startBtn" class="primary">START DEMO TRACK</button>
-          <button id="restartBtn">RESTART</button>
-          <p class="hint">Keyboard: A S K L · Pause: Esc<br>Mobile: tap the lane buttons.</p>
-        </section>
+      <section class="view content-view" id="view-discover" data-view-panel="discover">
+        <div class="section-head"><div><span class="eyebrow">BYTEGN.XYZ MUSIC LAB</span><h1>Discover</h1><p>Playable demo tracks for testing the BEAT//CITY engine. Real artist releases come after rights approval.</p></div><button class="primary" data-view="play">RETURN TO GAME</button></div>
+        <div class="track-grid" id="discoverGrid"></div>
+      </section>
 
-        <section class="panel queue">
-          <h3>♫ UP NEXT</h3>
-          <div class="queue-item active"><span class="mini-art pink-bg"></span><div><b>Rain Switch</b><small>MIMI.exe · 2:42</small></div></div>
-          <div class="queue-item"><span class="mini-art blue-bg"></span><div><b>City Lights</b><small>KATSUU · 3:01</small></div></div>
-          <div class="queue-item"><span class="mini-art lime-bg"></span><div><b>Tokyo Midnight</b><small>YUKI TANAKA · 2:55</small></div></div>
-        </section>
-      </aside>
+      <section class="view content-view" id="view-challenges" data-view-panel="challenges">
+        <div class="section-head"><div><span class="eyebrow">WEEKLY SIGNALS</span><h1>Challenges</h1><p>Local beta challenges save on this browser for now.</p></div></div>
+        <div class="cards-3">
+          <article class="panel big-card"><span class="challenge-kicker">WEEKLY</span><h2>50K Club</h2><p>Score 50,000+ on any Hard chart.</p><strong id="challengeScore">0 / 50,000</strong></article>
+          <article class="panel big-card"><span class="challenge-kicker cyan-text">ACCURACY</span><h2>Clean Signal</h2><p>Finish a track with 90%+ accuracy.</p><strong id="challengeAccuracy">Not cleared</strong></article>
+          <article class="panel big-card"><span class="challenge-kicker lime-text">STREAK</span><h2>No Static</h2><p>Build a 50-note combo.</p><strong id="challengeCombo">0 / 50</strong></article>
+        </div>
+      </section>
+
+      <section class="view content-view" id="view-chat" data-view-panel="chat">
+        <div class="section-head"><div><span class="eyebrow">CITY ROOM</span><h1>Chat</h1><p>Beta local-session chat. Messages persist on this browser and sync between open tabs on the same device.</p></div></div>
+        <div class="chat-layout">
+          <aside class="panel chat-rooms"><h3>ROOMS</h3><button class="room active"># city-chat <span>LOCAL</span></button><button class="room" disabled># charlotte <span>SOON</span></button><button class="room" disabled># artist-lounge <span>SOON</span></button><div class="chat-warning">Public multi-user chat requires a realtime backend before launch. This beta does not pretend otherwise.</div></aside>
+          <section class="panel chat-panel"><div class="chat-toolbar"><div><b># city-chat</b><small>Local beta room</small></div><button id="clearChat">CLEAR LOCAL</button></div><div class="messages" id="messages"></div><form id="chatForm" class="chat-form"><input id="chatName" maxlength="20" placeholder="handle" value="YOU"><input id="chatInput" maxlength="280" placeholder="type transmission..." autocomplete="off"><button class="primary">SEND</button></form></section>
+        </div>
+      </section>
+
+      <section class="view content-view" id="view-profile" data-view-panel="profile">
+        <div class="section-head"><div><span class="eyebrow">PLAYER NODE</span><h1>Profile</h1><p>Your Beta 0.2 stats are stored locally in this browser.</p></div></div>
+        <div class="profile-grid">
+          <section class="panel player-card"><div class="avatar">B//</div><h2>LOCAL PLAYER</h2><p>BYTEGN beta tester</p><span class="tag cyan">Browser Beta</span></section>
+          <section class="panel stat-stack"><div><span>BEST SCORE</span><strong id="profileScore">0</strong></div><div><span>BEST COMBO</span><strong id="profileCombo">0</strong></div><div><span>BEST ACCURACY</span><strong id="profileAccuracy">0.00%</strong></div><div><span>TRACKS CLEARED</span><strong id="profileClears">0</strong></div></section>
+        </div>
+      </section>
     </main>
 
-    <footer>BEAT//CITY // BROWSER BETA 0.1 · CREATED + DEVELOPED BY <b>BYTEGN.XYZ</b> · <span id="statusText">Press START DEMO TRACK</span></footer>
+    <footer>BEAT//CITY // BROWSER BETA 0.2 · CREATED + DEVELOPED BY <b>BYTEGN.XYZ</b> · <span id="statusText">Select a track and press START</span></footer>
   </div>
 
-  <div class="modal" id="settingsModal" hidden><div class="modal-card"><button class="close" id="closeSettings">×</button><h2>Beta Settings</h2><label><input type="checkbox" id="audioToggle" checked> Synth demo audio</label><label><input type="checkbox" id="screenShake" checked> Hit pulse</label><p>This beta intentionally uses generated demo audio. Local artist tracks can be wired in next.</p></div></div>
+  <div class="modal" id="settingsModal" hidden><div class="modal-card"><button class="close" id="closeSettings">×</button><h2>Beta Settings</h2><label><input type="checkbox" id="audioToggle" checked> Synth demo audio</label><label><input type="checkbox" id="screenShake" checked> Hit pulse</label><label><input type="checkbox" id="mobileFocusToggle" checked> Auto game-mode on mobile</label><p>Beta 0.2 uses generated demo audio. Local artist songs require explicit rights approval and a real media pipeline.</p></div></div>
 
   <script src="blackbox/beat-engine.js"></script>
 </body>
